@@ -73,6 +73,7 @@ contract Crowdsale is Ownable {
   uint256 public constant START = 1504594800; // Sep 5, 2017 @ 08:00 GMT+1
   uint256 public constant DAYS = 7; // 7 Days
 
+  uint256 public constant initialTokens = 30000000 * 10**18; // Initial number of tokens available
   bool public initialized = false;
   uint256 public raisedAmount = 0;
 
@@ -90,9 +91,9 @@ contract Crowdsale is Ownable {
       token = Token(_tokenAddr);
   }
   
-  function initialize(uint256 numTokens) onlyOwner {
+  function initialize() onlyOwner {
       require(initialized == false); // Can only be initialized once
-      require(tokensAvailable() == numTokens); // Must have some tokens allocated
+      require(tokensAvailable() == initialTokens); // Must have some tokens allocated
       initialized = true;
   }
 
