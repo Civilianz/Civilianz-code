@@ -76,8 +76,6 @@ contract PreICO is Ownable {
   uint256 public constant initialTokens = 6000000 * 10**18; // Initial number of tokens available
   bool public initialized = false;
   uint256 public raisedAmount = 0;
-  
-  mapping (address => uint256) buyers;
 
   event BoughtTokens(address indexed to, uint256 value);
 
@@ -120,9 +118,6 @@ contract PreICO is Ownable {
   * @dev function that sells available tokens
   */
   function buyTokens() payable whenSaleIsActive {
-    // Limit to 50 ether per buyer
-    require(buyers[msg.sender].add(msg.value) <= 50 ether);
-    
     // Calculate tokens to sell
     uint256 weiAmount = msg.value;
     uint256 tokens = weiAmount.mul(RATE);
@@ -131,9 +126,6 @@ contract PreICO is Ownable {
 
     // Increment raised amount
     raisedAmount = raisedAmount.add(msg.value);
-    
-    // Log amount to buyers mapping
-    buyers[msg.sender] = buyers[msg.sender].add(msg.value);
     
     // Send tokens to buyer
     token.transfer(msg.sender, tokens);
