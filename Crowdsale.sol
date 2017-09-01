@@ -66,7 +66,7 @@ contract Crowdsale is Ownable {
 
   using SafeMath for uint256;
 
-  Token token;
+  Token public token;
 
   uint256 public constant RATE = 2000; // Number of tokens per Ether
   uint256 public constant CAP = 15000; // Cap in Ether
